@@ -7,6 +7,8 @@
 ### Draft
 https://docs.google.com/document/d/1ge4OY-r1BiU2jtaeFwXgkGBtqrn0BLNq0VhEswCeo_Y/edit?usp=sharing
 
+### Reference
+
 ```
 @article{van2017neural,
   title={Neural discrete representation learning},
