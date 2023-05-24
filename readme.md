@@ -1,4 +1,4 @@
-### Get Started
+### [Get Started](https://github.com/ZixunHuang1997/VQVAE-Archetype/blob/main/review-generative-sol.pdf)
 1. Reparameterize Trick
 2. Latent Variable Models
 3. AE, VAE, VQAE, VQVAE
