@@ -1,14 +1,11 @@
-Github:
+### Get Started
 1. Reparameterize Trick
 2. Latent Variable Models
-3. VQVAE
-4. Application
+3. AE, VAE, VQAE, VQVAE
 
+
+### Draft
 https://docs.google.com/document/d/1ge4OY-r1BiU2jtaeFwXgkGBtqrn0BLNq0VhEswCeo_Y/edit?usp=sharing
-
-'''
-
-'''
 
 ```
 @article{van2017neural,
