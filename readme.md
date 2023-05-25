@@ -43,10 +43,16 @@
 ![image](https://github.com/ZixunHuang1997/VQVAE-Archetype/assets/106426767/95f12321-cb38-4d5f-b07e-eba199fdb6e3)
 
 ### vqae multi-scaled recon for buildings with large floor area
+1
 ![image](https://github.com/ZixunHuang1997/VQVAE-Archetype/assets/106426767/1f805e21-cbf2-41bd-aada-6eaa3bb14c81)
 ![image](https://github.com/ZixunHuang1997/VQVAE-Archetype/assets/106426767/16e75f2e-e331-4453-9426-00bde4bd66e1)
 ![image](https://github.com/ZixunHuang1997/VQVAE-Archetype/assets/106426767/0f116e39-352f-4547-9b23-1def423d47fa)
 ![image](https://github.com/ZixunHuang1997/VQVAE-Archetype/assets/106426767/80bbd429-7ab4-4c11-a359-002e1357705b)
+2
+![image](https://github.com/ZixunHuang1997/VQVAE-Archetype/assets/106426767/3fa96413-2144-4730-881c-0b3ff319cb2c)
+![image](https://github.com/ZixunHuang1997/VQVAE-Archetype/assets/106426767/1f1ea28a-b48c-4c63-9910-9e82c2c5a6bf)
+![image](https://github.com/ZixunHuang1997/VQVAE-Archetype/assets/106426767/87199321-1486-43cf-b790-b03d88b58d71)
+![image](https://github.com/ZixunHuang1997/VQVAE-Archetype/assets/106426767/853063a0-9487-464f-8325-41f8f31b42c7)
 
 
 
