@@ -25,9 +25,9 @@ def load_CIFAR10():
 
     return training_data, validation_data, data_variance
 
-def load_FloorPlan():
+def load_FloorPlan(multi_scale=False):
     #Load Dataset
-    floor = FloorPlanDataset()
+    floor = FloorPlanDataset(multi_scale=multi_scale)
 
     val_len = int(len(floor)/10)
     train_set, val_set = torch.utils.data.random_split(floor, [len(floor)-val_len, val_len])
@@ -38,9 +38,10 @@ def load_FloorPlan():
 
 # Floor Plan
 class FloorPlanDataset(torch.utils.data.Dataset):
-    def __init__(self, root='data/floorplan_crop/', add_noise=False):
+    def __init__(self, root='data/floorplan_crop/', add_noise=False, multi_scale=False):
         self.data_root = root
         self.add_noise = add_noise
+        self.multi_scale = multi_scale
         self._init_config()
         self._init_data_info()
 
@@ -53,6 +54,17 @@ class FloorPlanDataset(torch.utils.data.Dataset):
                                             transforms.Resize(112),
                                             transforms.CenterCrop(56),
                                           ])
+        if self.multi_scale:
+            self.composed_0 = transforms.Compose([
+                                            transforms.Normalize((0.5,0.5,0.5), (1.0,1.0,1.0)),
+                                            transforms.Grayscale(1)])
+            self.composed_1 = transforms.Compose([
+                                            transforms.Resize(56)])
+            self.composed_2 = transforms.Compose([
+                                            transforms.CenterCrop(112),
+                                            transforms.Resize(56)])
+            self.composed_3 = transforms.Compose([
+                                            transforms.CenterCrop(56)])
 
     def _init_data_info(self):
         self.all_data_dirs = os.listdir(self.data_root)
@@ -70,7 +82,17 @@ class FloorPlanDataset(torch.utils.data.Dataset):
             img = self.trancolor(img)
         img = np.array(img)/255.0
         img = np.transpose(img[:, :, :3], (2, 0, 1))
-        return self.composed(torch.from_numpy(img.astype(np.float32)))
+        img_tensor = torch.from_numpy(img.astype(np.float32))
+        if not self.multi_scale:
+            return self.composed(img_tensor)
+        else:
+            img_tensor = self.composed_0(img_tensor)
+            channel_1 = self.composed_1(img_tensor)
+            channel_2 = self.composed_2(img_tensor)
+            channel_3 = self.composed_3(img_tensor)
+            
+            return torch.cat([channel_1,channel_2,channel_3], dim=0)
+
     
 
 
