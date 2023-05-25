@@ -4,11 +4,9 @@
 3. AE, VAE, VQAE, VQVAE
 
 
-### 👉Paper Draft
-https://docs.google.com/document/d/1ge4OY-r1BiU2jtaeFwXgkGBtqrn0BLNq0VhEswCeo_Y/edit?usp=sharing
+### 👉[Paper Draft](https://docs.google.com/document/d/1ge4OY-r1BiU2jtaeFwXgkGBtqrn0BLNq0VhEswCeo_Y/edit?usp=sharing)
 
-### 👉Get Started with notebook
-- https://github.com/ZixunHuang1997/VQVAE-Archetype/blob/main/train.ipynb
+### 👉[Get Started with notebook](https://github.com/ZixunHuang1997/VQVAE-Archetype/blob/main/train.ipynb)
 
 ### 👉[Best Checkpoint Released](https://github.com/ZixunHuang1997/VQVAE-Archetype/tree/main/best_checkpoint)
 - Related hyper-parameters is included in the notebook
