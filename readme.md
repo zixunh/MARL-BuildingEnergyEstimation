@@ -12,6 +12,7 @@ https://docs.google.com/document/d/1ge4OY-r1BiU2jtaeFwXgkGBtqrn0BLNq0VhEswCeo_Y/
 
 ### [Best Checkpoint Released](https://github.com/ZixunHuang1997/VQVAE-Archetype/tree/main/best_checkpoint)
 - Related hyper-parameters is included in the notebook
+
 ![download](https://github.com/ZixunHuang1997/VQVAE-Archetype/assets/106426767/027d137d-6c23-46ec-809a-39c0f3b67e71)
 ![download](https://github.com/ZixunHuang1997/VQVAE-Archetype/assets/106426767/8ff2786b-83b7-4391-a528-66210b659e47)
 
