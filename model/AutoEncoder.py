@@ -1,5 +1,5 @@
 import torch.nn as nn
-from ResidualNet import ResidualLayers
+from model.ResidualNet import ResidualLayers
 import torch
 from torch.distributions import MultivariateNormal, Normal, Independent
 
@@ -28,7 +28,7 @@ class Encoder(nn.Module):
     
 
 class Decoder(nn.Module):
-    def __init__(self, in_dim, h_dim, n_res_layers, res_h_dim):
+    def __init__(self, in_dim, h_dim, n_res_layers, res_h_dim, out_channel=3):
         super(Decoder, self).__init__()
         kernel = 4
         stride = 2
@@ -40,7 +40,7 @@ class Decoder(nn.Module):
             nn.ConvTranspose2d(h_dim, h_dim // 2,
                                kernel_size=kernel, stride=stride, padding=1),
             nn.ReLU(),
-            nn.ConvTranspose2d(h_dim//2, 3, kernel_size=kernel,
+            nn.ConvTranspose2d(h_dim//2, out_channel, kernel_size=kernel,
                                stride=stride, padding=1)
         )
 
