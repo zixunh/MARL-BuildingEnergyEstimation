@@ -21,9 +21,12 @@
 ### 👉Floor Plan Recon
 ##### original
 ![download](https://github.com/ZixunHuang1997/VQVAE-Archetype/assets/106426767/027d137d-6c23-46ec-809a-39c0f3b67e71)
+![image](https://github.com/ZixunHuang1997/VQVAE-Archetype/assets/106426767/95b3e876-120d-41a3-9d94-7a49f562512a)
 
 ##### vqae reconstructed
 ![download](https://github.com/ZixunHuang1997/VQVAE-Archetype/assets/106426767/8ff2786b-83b7-4391-a528-66210b659e47)
+![image](https://github.com/ZixunHuang1997/VQVAE-Archetype/assets/106426767/5d688ebe-b08d-44ea-b8df-33464c6a7fba)
+
 
 ### 👉Reference
 ```
