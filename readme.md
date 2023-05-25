@@ -10,8 +10,19 @@
 
 ### 👉[Best Checkpoint Released](https://github.com/ZixunHuang1997/VQVAE-Archetype/tree/main/best_checkpoint)
 - Related hyper-parameters is included in the notebook
+- best_loss = 0.21704871313912527
 
+### 👉Loss
+##### train
+![image](https://github.com/ZixunHuang1997/VQVAE-Archetype/assets/106426767/4c672a49-da2f-4157-bbfb-9d74de229ebc)
+##### val
+![image](https://github.com/ZixunHuang1997/VQVAE-Archetype/assets/106426767/b8b03c4c-3066-410e-b958-60db297fe3d4)
+
+### 👉Floor Plan Recon
+##### original
 ![download](https://github.com/ZixunHuang1997/VQVAE-Archetype/assets/106426767/027d137d-6c23-46ec-809a-39c0f3b67e71)
+
+##### vqae reconstructed
 ![download](https://github.com/ZixunHuang1997/VQVAE-Archetype/assets/106426767/8ff2786b-83b7-4391-a528-66210b659e47)
 
 ### 👉Reference
