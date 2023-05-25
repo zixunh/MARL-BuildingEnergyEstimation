@@ -4,7 +4,7 @@
 3. AE, VAE, VQAE, VQVAE
 
 
-### Draft
+### Paper Draft
 https://docs.google.com/document/d/1ge4OY-r1BiU2jtaeFwXgkGBtqrn0BLNq0VhEswCeo_Y/edit?usp=sharing
 
 ### Get Started with notebook
