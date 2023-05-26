@@ -1,6 +1,6 @@
 # Version 1.0
 ### TODO
-[] energy analyse
+- [ ] energy analyse
 [] conf paper
 
 ### 👉[Concept Warmup](https://github.com/ZixunHuang1997/VQVAE-Archetype/blob/main/review-generative-sol.pdf)
