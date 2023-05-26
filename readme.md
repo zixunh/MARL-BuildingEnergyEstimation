@@ -40,6 +40,7 @@
 ---
 # 2.0 multi-scale vqae
 ### multi-scale vqae loss
+- best loss = 0.14986537524632043
 ![image](https://github.com/ZixunHuang1997/VQVAE-Archetype/assets/106426767/b916ff8a-be6f-4516-993f-1a1d86f2cecd)
 ![image](https://github.com/ZixunHuang1997/VQVAE-Archetype/assets/106426767/95f12321-cb38-4d5f-b07e-eba199fdb6e3)
 
