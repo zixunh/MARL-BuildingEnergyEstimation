@@ -1,7 +1,7 @@
 # Version 1.0
 ### TODO
 - [ ] energy analyse
-[] conf paper
+- [ ] conf paper
 
 ### 👉[Concept Warmup](https://github.com/ZixunHuang1997/VQVAE-Archetype/blob/main/review-generative-sol.pdf)
 1. Reparameterize Trick
@@ -45,8 +45,8 @@
 ---
 # Version 2.0
 ### TODO
-[] Jou paper
-[] add meta data
+- [ ] Jou paper
+- [ ] add meta data
 
 ### multi-scale vqae loss
 - best loss = 0.14986537524632043
