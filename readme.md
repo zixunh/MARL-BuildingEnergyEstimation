@@ -1,3 +1,4 @@
+# Version 1.0
 ### 👉[Concept Warmup](https://github.com/ZixunHuang1997/VQVAE-Archetype/blob/main/review-generative-sol.pdf)
 1. Reparameterize Trick
 2. Latent Variable Models
@@ -38,7 +39,7 @@
 ```
 
 ---
-# 2.0 multi-scale vqae
+# Version 2.0
 ### multi-scale vqae loss
 - best loss = 0.14986537524632043
 ![image](https://github.com/ZixunHuang1997/VQVAE-Archetype/assets/106426767/b916ff8a-be6f-4516-993f-1a1d86f2cecd)
