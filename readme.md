@@ -3,6 +3,7 @@
 - [x] vqae
 - [ ] energy analyse
 - [ ] conf paper
+- [ ] code release and dependency
 
 ### 👉[Concept Warmup](https://github.com/ZixunHuang1997/VQVAE-Archetype/blob/main/review-generative-sol.pdf)
 1. Reparameterize Trick
