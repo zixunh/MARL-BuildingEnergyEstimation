@@ -1,5 +1,6 @@
 # Version 1.0
 ### TODO
+- [x] vqae
 - [ ] energy analyse
 - [ ] conf paper
 
@@ -45,7 +46,9 @@
 ---
 # Version 2.0
 ### TODO
-- [ ] Jou paper
+- [x] multiscaled vqae
+- [ ] ae compare
+- [ ] Jou paper draft
 - [ ] add meta data
 
 ### multi-scale vqae loss
