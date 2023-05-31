@@ -32,6 +32,15 @@
 ![image](https://github.com/ZixunHuang1997/VQVAE-Archetype/assets/106426767/95b3e876-120d-41a3-9d94-7a49f562512a)
 ![image](https://github.com/ZixunHuang1997/VQVAE-Archetype/assets/106426767/5d688ebe-b08d-44ea-b8df-33464c6a7fba)
 
+## K-means Clustering (K=16, for all type building)
+### latent visualization with tSNE
+![download](https://github.com/ZixunHuang1997/VQVAE-Archetype/assets/106426767/4691db79-58d8-4d50-ac99-5b57d3e3224a)
+### latent clustering with KMeans
+![download](https://github.com/ZixunHuang1997/VQVAE-Archetype/assets/106426767/a070de53-23dc-4efa-aeb8-8c30ee306f9a)
+### Decode the cluster centers
+![download](https://github.com/ZixunHuang1997/VQVAE-Archetype/assets/106426767/9699aeea-d2ff-451f-a8e4-761fd527d381)
+
+## Todo: residential
 
 ### 👉Reference
 ```
