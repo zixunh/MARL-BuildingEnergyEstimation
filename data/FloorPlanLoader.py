@@ -71,9 +71,10 @@ class FloorPlanDataset(torch.utils.data.Dataset):
         self.all_data_dirs = os.listdir(self.data_root)
         newlist = []
         for names in self.all_data_dirs:
-            if names.endswith(".png"):
+            if names.endswith(".png" if not self.preprocess else ".pt"):
                 newlist.append(names)
-        self.all_data_dirs = [self.data_root + str(i) + '.png' for i in range(0,len(newlist))]
+        self.all_data_dirs = [self.data_root + name for name in newlist]
+
         
     def data_variance(self):
         return np.var(np.array([self[i] for i in range(0,self.__len__())])/255.0)
@@ -83,7 +84,7 @@ class FloorPlanDataset(torch.utils.data.Dataset):
     
     def __getitem__(self, index):
         if self.preprocess:
-            return torch.load(self.data_root+str(index)+".pt")
+            return torch.load(self.all_data_dirs[index])
         img = Image.open(self.all_data_dirs[index])
         if self.add_noise:
             img = self.trancolor(img)
