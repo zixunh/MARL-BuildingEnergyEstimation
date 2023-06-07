@@ -84,3 +84,4 @@ class VQAE(nn.Module):
         embedding_loss, quantized, perplexity, _ = self.vector_quantization(z_e)
         
         return embedding_loss, quantized, perplexity, _
+    

@@ -9,13 +9,13 @@ from utils import *
 
 # Demo Data
 def load_CIFAR10():
-    training_data = torchvision.datasets.CIFAR10(root="data", train=True, download=False,
+    training_data = torchvision.datasets.CIFAR10(root="../data", train=True, download=False,
                                     transform=transforms.Compose([
                                         transforms.ToTensor(),
                                         transforms.Normalize((0.5,0.5,0.5), (1.0,1.0,1.0))
                                     ]))
 
-    validation_data = torchvision.datasets.CIFAR10(root="data", train=False, download=False,
+    validation_data = torchvision.datasets.CIFAR10(root="../data", train=False, download=False,
                                     transform=transforms.Compose([
                                         transforms.ToTensor(),
                                         transforms.Normalize((0.5,0.5,0.5), (1.0,1.0,1.0))
@@ -38,10 +38,11 @@ def load_FloorPlan(multi_scale=False):
 
 # Floor Plan
 class FloorPlanDataset(torch.utils.data.Dataset):
-    def __init__(self, root='data/floorplan_crop/', add_noise=False, multi_scale=False):
+    def __init__(self, root='../data/floorplan_crop/', add_noise=False, multi_scale=False, preprocess=False):
         self.data_root = root
         self.add_noise = add_noise
         self.multi_scale = multi_scale
+        self.preprocess = preprocess
         self._init_config()
         self._init_data_info()
 
@@ -68,7 +69,12 @@ class FloorPlanDataset(torch.utils.data.Dataset):
 
     def _init_data_info(self):
         self.all_data_dirs = os.listdir(self.data_root)
-        self.all_data_dirs = [self.data_root + str(i) + '.png' for i in range(0,self.__len__())]
+        newlist = []
+        for names in self.all_data_dirs:
+            if names.endswith(".png" if not self.preprocess else ".pt"):
+                newlist.append(names)
+        self.all_data_dirs = [self.data_root + name for name in newlist]
+
         
     def data_variance(self):
         return np.var(np.array([self[i] for i in range(0,self.__len__())])/255.0)
@@ -77,6 +83,8 @@ class FloorPlanDataset(torch.utils.data.Dataset):
         return len(self.all_data_dirs)
     
     def __getitem__(self, index):
+        if self.preprocess:
+            return torch.load(self.all_data_dirs[index])
         img = Image.open(self.all_data_dirs[index])
         if self.add_noise:
             img = self.trancolor(img)
