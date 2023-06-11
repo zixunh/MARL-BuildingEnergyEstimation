@@ -38,8 +38,10 @@ def load_FloorPlan(multi_scale=False):
 
 # Floor Plan
 class FloorPlanDataset(torch.utils.data.Dataset):
-    def __init__(self, root='../data/floorplan_crop/', add_noise=False, multi_scale=False, preprocess=False):
+    def __init__(self, root='../data/floorplan_crop/', subset=None, 
+                 add_noise=False, multi_scale=False, preprocess=False):
         self.data_root = root
+        self.subset = subset
         self.add_noise = add_noise
         self.multi_scale = multi_scale
         self.preprocess = preprocess
@@ -70,14 +72,23 @@ class FloorPlanDataset(torch.utils.data.Dataset):
     def _init_data_info(self):
         self.all_data_dirs = os.listdir(self.data_root)
         newlist = []
+        subset_idx = None
+        if self.subset is not None:
+            import pandas as pd
+            subset_idx = list(pd.read_excel(self.subset).to_numpy().flatten())
+
         for names in self.all_data_dirs:
             if names.endswith(".png" if not self.preprocess else ".pt"):
+                if subset_idx is not None and not int(names[:-3]) in subset_idx:
+                    continue
                 newlist.append(names)
         self.all_data_dirs = [self.data_root + name for name in newlist]
 
         
     def data_variance(self):
-        return np.var(np.array([self[i] for i in range(0,self.__len__())])/255.0)
+        value =  np.var(np.array([self.preload(i).numpy() for i in range(0,self.__len__())]))
+        self.preprocess = True
+        return value
 
     def __len__(self):
         return len(self.all_data_dirs)
@@ -100,6 +111,12 @@ class FloorPlanDataset(torch.utils.data.Dataset):
             channel_3 = self.composed_3(img_tensor)
             
             return torch.cat([channel_1,channel_2,channel_3], dim=0)
+        
+    def preload(self, index):
+        data = self[index]
+        if not self.preprocess:
+            torch.save(data, self.data_root + str(index) + '.pt')
+        return data
 
     
 
