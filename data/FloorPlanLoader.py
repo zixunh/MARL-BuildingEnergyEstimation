@@ -47,6 +47,7 @@ class FloorPlanDataset(torch.utils.data.Dataset):
         self.preprocess = preprocess
         self._init_config()
         self._init_data_info()
+        self.var = self.data_variance()
 
     def _init_config(self):
         self.trancolor = transforms.ColorJitter(0.2, 0.2, 0.2, 0.05)
@@ -70,26 +71,33 @@ class FloorPlanDataset(torch.utils.data.Dataset):
                                             transforms.CenterCrop(56)])
 
     def _init_data_info(self):
-        self.all_data_dirs = os.listdir(self.data_root)
-        newlist = []
-        subset_idx = None
+        all_file_names = os.listdir(self.data_root)
+        self.all_data_dirs = []
         if self.subset is not None:
             import pandas as pd
             subset_idx = list(pd.read_excel(self.subset).to_numpy().flatten())
+            self.all_data_dirs = [self.data_root+str(idx)+('.pt' if self.preprocess else '.png') for idx in subset_idx]
+            return
+        
+        for name in all_file_names:
+            if name.endswith(".png" if not self.preprocess else ".pt"):
+                self.all_data_dirs.append(self.data_root + name)
 
-        for names in self.all_data_dirs:
-            if names.endswith(".png" if not self.preprocess else ".pt"):
-                if subset_idx is not None and not int(names[:-3]) in subset_idx:
-                    continue
-                newlist.append(names)
-        self.all_data_dirs = [self.data_root + name for name in newlist]
-
+          
         
     def data_variance(self):
-        value =  np.var(np.array([self.preload(i).numpy() for i in range(0,self.__len__())]))
+        value = np.var(np.array([self.preload(i).numpy() for i in range(0,self.__len__())]))
         self.preprocess = True
         return value
+    
+    def preload(self, index):
+        data = self[index]
+        if not self.preprocess:
+            self.all_data_dirs[index] = self.all_data_dirs[index][:-4]+'.pt'
+            torch.save(data, self.all_data_dirs[index])
+        return data
 
+    
     def __len__(self):
         return len(self.all_data_dirs)
     
@@ -112,13 +120,7 @@ class FloorPlanDataset(torch.utils.data.Dataset):
             
             return torch.cat([channel_1,channel_2,channel_3], dim=0)
         
-    def preload(self, index):
-        data = self[index]
-        if not self.preprocess:
-            torch.save(data, self.data_root + str(index) + '.pt')
-        return data
 
-    
 
 
 
