@@ -5,3 +5,5 @@ __pycache__
 data/cifar-10-batches-py
 data/cifar-10-batches-py/*
 checkpoint/*
+data/floorplan_crop/*
+data/img_residential_original/*
