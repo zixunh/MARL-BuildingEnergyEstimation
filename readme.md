@@ -1,3 +1,19 @@
+# Notes on data
+metadata  
+index - surface index for image data
+year - construction year
+category
+|-|-|
+|0|CIE|
+|1|Residential|
+|2|MIPs|
+|3|Hotel|
+|4|MixRes|
+|5|Mixed|
+|6|MED|
+|7|PDR|
+|8|Retail/Entertain|
+
 # Version 1.0
 ### TODO
 - [x] vqae
