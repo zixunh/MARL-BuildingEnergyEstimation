@@ -1,9 +1,21 @@
 # Notes on data
-metadata  
-index - surface index for image data
-year - construction year
-category
-|-|-|
+current # data = 2806, with several empty data
+<b>metadata</b>  
+
+[!] need to remove <b>0</b> and <b>null</b> value in year, which corresponds to 999 in category
+The meta data has three columns:
+
+
+
+|index|year|category|
+| ------------- | ------------- |---|
+|image index for floorplan|construction year|see below|
+
+
+The categories are coded as below:
+
+| Index | Category |
+| ------------- | ------------- |
 |0|CIE|
 |1|Residential|
 |2|MIPs|
@@ -13,6 +25,7 @@ category
 |6|MED|
 |7|PDR|
 |8|Retail/Entertain|
+|999|Null|
 
 # Version 1.0
 ### TODO
