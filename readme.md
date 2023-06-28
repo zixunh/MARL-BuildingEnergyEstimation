@@ -1,3 +1,6 @@
+# ARLC: Archetype Representation Learning and Clustering for Building Energy Estimation
+ARLC is a self-supervised learning-based pipeline for representing and clustering buildings in our urban environment. Our research has shown it can be used in building energy estimation and can significantly save computing time.
+
 # Notes on data
 current # data = 2806, with several empty data
 <b>metadata</b>  
