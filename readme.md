@@ -1,7 +1,26 @@
 # MARL: [M]ulti-scale [A]rchetype [R]epresentation [L]earning and Clustering for Building Energy Estimation
 MAR4BEE is a self-supervised learning-based pipeline for representing and clustering buildings in our urban environment. Our research has shown it can be used in building energy estimation and can significantly save computing time.
 
-# Notes on data
+# Notes on LA data
+
+current # data = 1,048,575
+height info is color coded with viridis 
+with Residential only, within the residential category, 
+The categories are coded as below:
+
+| Index | Category |
+| ------------- | ------------- |
+|0|Mobile Homes|
+|1|Three Units (Any combination)|
+|2|Two Units|
+|3|Single|
+|4|Five or more apartments|
+|5|Four Units (Any combination)|
+|6|Mobile Home Parks|
+|7|Rooming Houses|
+
+
+# Notes on SF data
 current # data = 2806, with several empty data
 <b>metadata</b>  
 
