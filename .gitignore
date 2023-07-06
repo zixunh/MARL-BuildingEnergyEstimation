@@ -6,4 +6,6 @@ data/cifar-10-batches-py
 data/cifar-10-batches-py/*
 checkpoint/*
 data/floorplan_crop/*
+data/test_data/*
+data/data_root/data00/*
 data/img_residential_original/*
