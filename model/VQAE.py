@@ -49,7 +49,8 @@ class VectorQuantizer(nn.Module):
     
 class VQAE(nn.Module):
     def __init__(self, h_dim, res_h_dim, n_res_layers,
-                 n_embeddings, embedding_dim, beta, img_channel, save_img_embedding_map=False):
+                 n_embeddings, embedding_dim, beta, img_channel, 
+                 save_img_embedding_map=False):
         super(VQAE, self).__init__()
         # encode image into continuous latent space
         self.encoder = Encoder(img_channel, h_dim, n_res_layers, res_h_dim)
@@ -66,22 +67,16 @@ class VQAE(nn.Module):
         else:
             self.img_to_embedding_map = None
 
-    def forward(self, x, verbose=False):
-
-        z_e = self.encoder(x)
-
-        z_e = self.pre_quantization_conv(z_e)
-        embedding_loss, z_q, perplexity, _ = self.vector_quantization(z_e)
-        x_hat = self.decoder(z_q)
+    def forward(self, x):
+        return self.decode(self.encode(x))
+    
+    def encode(self, x):
+        return self.encoder(x)
+    
+    def decode(self, latent):
+        latent = self.pre_quantization_conv(latent)
+        embedding_loss, latent, perplexity, _ = self.vector_quantization(latent)
+        x_hat = self.decoder(latent)
         
         return embedding_loss, x_hat, perplexity
-    
-    def latent(self, x):
-
-        z_e = self.encoder(x)
-
-        z_e = self.pre_quantization_conv(z_e)
-        embedding_loss, quantized, perplexity, _ = self.vector_quantization(z_e)
-        
-        return embedding_loss, quantized, perplexity, _
     
