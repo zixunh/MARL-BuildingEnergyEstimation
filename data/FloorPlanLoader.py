@@ -1,4 +1,3 @@
-import torchvision
 from torchvision import transforms
 import numpy as np
 import torch
@@ -7,6 +6,8 @@ import os
 from PIL import Image
 from utils import *
 import pandas as pd
+from sklearn.preprocessing import OneHotEncoder, LabelEncoder
+
 
 def load_FloorPlan(multi_scale=False):
     #Load Dataset
@@ -21,14 +22,14 @@ def load_FloorPlan(multi_scale=False):
 
 # Floor Plan
 class FloorPlanDataset(torch.utils.data.Dataset):
-    def __init__(self, root='../data/data_root/', #subset=None, 
+    def __init__(self, root='../data/data_root/', subset=None, 
                  data_config='../data/data_config/', 
                  add_noise=False, multi_scale=False, 
                  preprocess=False):
         
         self.data_root = root
         self.data_config = data_config
-        # self.subset = subset
+        self.subset = subset
         self.add_noise = add_noise
         self.multi_scale = multi_scale
         self.preprocess = preprocess
@@ -60,22 +61,21 @@ class FloorPlanDataset(torch.utils.data.Dataset):
 
     def _init_data_info(self):
         all_file_names = os.listdir(self.data_root)
+        self.meta_info = pd.read_csv(os.path.join(self.data_config, 'meta.csv'), index_col='OBJECTID')
+        self.height_info = pd.read_csv(os.path.join(self.data_config, 'height.csv'), index_col='OBJECTID')
+        self.meta_info['AgeLabel'] = LabelEncoder().fit_transform(self.meta_info['YearBuilt1'])
+        self.meta_info['CateOneHot'] = OneHotEncoder().fit_transform(self.meta_info.UseDescription.values.reshape(-1,1)).toarray().tolist()
+
         self.all_data_dirs = []
         self.all_building_idx = []
-        # if self.subset is not None:
-        #     import pandas as pd
-        #     subset_idx = list(pd.read_excel(self.subset).to_numpy().flatten())
-        #     self.all_data_dirs = [self.data_root+str(idx)+('.pt' if self.preprocess else '.png') for idx in subset_idx]
-        #     return
+        if self.subset is not None:
+            subset_idx = list(pd.read_excel(self.subset).to_numpy().flatten())
+            self.all_data_dirs = [self.data_root+str(idx)+('.pt' if self.preprocess else '.png') for idx in subset_idx]
+            return
         for name in all_file_names:
             if name.endswith(".png" if not self.preprocess else ".pt"):
                 self.all_data_dirs.append(self.data_root + name)
                 self.all_building_idx.append(int(name[:-3]))
-
-        self.meta_data = pd.read_csv(os.path.join(self.data_config, 'meta.csv'), index_col='OBJECTID')
-        self.height_data = pd.read_csv(os.path.join(self.data_config, 'height.csv'), index_col='OBJECTID')
-        self.meta_onehot
-
 
     def data_variance(self):
         if not self.preprocess:
@@ -86,12 +86,13 @@ class FloorPlanDataset(torch.utils.data.Dataset):
         return value
     
     def preload(self, index):
-        data = self[index]
-        if not self.preprocess:
+        data_dict = self[index]
+        data = data_dict['image_tensor']
+        invalid_check = (data_dict['year_built']!=0)
+        if not self.preprocess and invalid_check:
             self.all_data_dirs[index] = self.all_data_dirs[index][:-4]+'.pt'
             torch.save(data, self.all_data_dirs[index])
         return data
-
     
     def __len__(self):
         return len(self.all_data_dirs)
@@ -99,11 +100,14 @@ class FloorPlanDataset(torch.utils.data.Dataset):
     def __getitem__(self, index):
         # meta info loading
         obj_idx = self.all_building_idx[index]
-        meta_info = self.meta_data.loc[[obj_idx]]
-        year_built = meta_info.at[obj_idx, 'YearBuilt1']
-        height = self.height_data.at[obj_idx, 'HEIGHT_norm']
-        category = meta_info.at[obj_idx, 'UseDescription']
+        meta_info = self.meta_info.loc[[obj_idx]]
+        height = self.height_info.at[obj_idx, 'HEIGHT_norm']
 
+        year_built = meta_info.at[obj_idx, 'YearBuilt1']
+        category = meta_info.at[obj_idx, 'UseDescription']
+        age_label = meta_info.at[obj_idx, 'AgeLabel']
+        cate_onehot = meta_info.at[obj_idx, 'CateOneHot']
+  
 
         # image loading
         if self.preprocess:
@@ -126,8 +130,10 @@ class FloorPlanDataset(torch.utils.data.Dataset):
         return {
                     'image_tensor': img_tensor,
                     'year_built': year_built,
+                    'age_label': age_label,
                     'height': height,
-                    'category': category
+                    'category': category,
+                    'cate_onehot': cate_onehot
                }
         
 
