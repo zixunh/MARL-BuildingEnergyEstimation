@@ -3,7 +3,6 @@ from PIL import Image
 import numpy as np
 from torchvision import transforms
 import os
-from sklearn.preprocessing import OneHotEncoder
 
 # Data utils
 class Centeralize(object):
@@ -62,3 +61,4 @@ def preprocess_data(data_root):
             pass
         i+=1
         break
+
