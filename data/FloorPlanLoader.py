@@ -6,24 +6,7 @@ from utils import add_noise
 import os
 from PIL import Image
 from utils import *
-
-# Demo Data
-def load_CIFAR10():
-    training_data = torchvision.datasets.CIFAR10(root="../data", train=True, download=False,
-                                    transform=transforms.Compose([
-                                        transforms.ToTensor(),
-                                        transforms.Normalize((0.5,0.5,0.5), (1.0,1.0,1.0))
-                                    ]))
-
-    validation_data = torchvision.datasets.CIFAR10(root="../data", train=False, download=False,
-                                    transform=transforms.Compose([
-                                        transforms.ToTensor(),
-                                        transforms.Normalize((0.5,0.5,0.5), (1.0,1.0,1.0))
-                                    ]))
-
-    data_variance = np.var(training_data.data / 255.0)
-
-    return training_data, validation_data, data_variance
+import pandas as pd
 
 def load_FloorPlan(multi_scale=False):
     #Load Dataset
@@ -38,10 +21,14 @@ def load_FloorPlan(multi_scale=False):
 
 # Floor Plan
 class FloorPlanDataset(torch.utils.data.Dataset):
-    def __init__(self, root='../data/floorplan_crop/', subset=None, 
-                 add_noise=False, multi_scale=False, preprocess=False):
+    def __init__(self, root='../data/data_root/', #subset=None, 
+                 data_config='../data/data_config/', 
+                 add_noise=False, multi_scale=False, 
+                 preprocess=False):
+        
         self.data_root = root
-        self.subset = subset
+        self.data_config = data_config
+        # self.subset = subset
         self.add_noise = add_noise
         self.multi_scale = multi_scale
         self.preprocess = preprocess
@@ -53,41 +40,49 @@ class FloorPlanDataset(torch.utils.data.Dataset):
         self.trancolor = transforms.ColorJitter(0.2, 0.2, 0.2, 0.05)
         self.norm = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
         self.composed = transforms.Compose([
-                                            transforms.Normalize((0.5,0.5,0.5), (1.0,1.0,1.0)),
-                                            transforms.Grayscale(1),
-                                            transforms.Resize(112),
-                                            transforms.CenterCrop(56),
-                                          ])
+                                transforms.Normalize((0.5,0.5,0.5), (1.0,1.0,1.0)),
+                                transforms.Grayscale(1),
+                                transforms.Resize(112),
+                                transforms.CenterCrop(56),
+                                ])
         if self.multi_scale:
             self.composed_0 = transforms.Compose([
-                                            transforms.Normalize((0.5,0.5,0.5), (1.0,1.0,1.0)),
-                                            transforms.Grayscale(1)])
+                                transforms.Normalize((0.5,0.5,0.5), (1.0,1.0,1.0)),
+                                transforms.Grayscale(1),
+                                transforms.CenterCrop(700)])
             self.composed_1 = transforms.Compose([
-                                            transforms.Resize(56)])
+                                transforms.Resize(112)])
             self.composed_2 = transforms.Compose([
-                                            transforms.CenterCrop(112),
-                                            transforms.Resize(56)])
+                                transforms.CenterCrop(224),
+                                transforms.Resize(112)])
             self.composed_3 = transforms.Compose([
-                                            transforms.CenterCrop(56)])
+                                transforms.CenterCrop(112)])
 
     def _init_data_info(self):
         all_file_names = os.listdir(self.data_root)
         self.all_data_dirs = []
-        if self.subset is not None:
-            import pandas as pd
-            subset_idx = list(pd.read_excel(self.subset).to_numpy().flatten())
-            self.all_data_dirs = [self.data_root+str(idx)+('.pt' if self.preprocess else '.png') for idx in subset_idx]
-            return
-        
+        self.all_building_idx = []
+        # if self.subset is not None:
+        #     import pandas as pd
+        #     subset_idx = list(pd.read_excel(self.subset).to_numpy().flatten())
+        #     self.all_data_dirs = [self.data_root+str(idx)+('.pt' if self.preprocess else '.png') for idx in subset_idx]
+        #     return
         for name in all_file_names:
             if name.endswith(".png" if not self.preprocess else ".pt"):
                 self.all_data_dirs.append(self.data_root + name)
+                self.all_building_idx.append(int(name[:-3]))
 
-          
-        
+        self.meta_data = pd.read_csv(os.path.join(self.data_config, 'meta.csv'), index_col='OBJECTID')
+        self.height_data = pd.read_csv(os.path.join(self.data_config, 'height.csv'), index_col='OBJECTID')
+        self.meta_onehot
+
+
     def data_variance(self):
-        value = np.var(np.array([self.preload(i).numpy() for i in range(0,self.__len__())]))
-        self.preprocess = True
+        if not self.preprocess:
+            value = np.var(np.array([self.preload(i).numpy() for i in range(0,self.__len__())]))
+            self.preprocess = True
+            torch.save(value, os.path.join(self.data_root, 'var_pt'))
+        value = torch.load(os.path.join(self.data_root, 'var_pt'))
         return value
     
     def preload(self, index):
@@ -102,23 +97,38 @@ class FloorPlanDataset(torch.utils.data.Dataset):
         return len(self.all_data_dirs)
     
     def __getitem__(self, index):
+        # meta info loading
+        obj_idx = self.all_building_idx[index]
+        meta_info = self.meta_data.loc[[obj_idx]]
+        year_built = meta_info.at[obj_idx, 'YearBuilt1']
+        height = self.height_data.at[obj_idx, 'HEIGHT_norm']
+        category = meta_info.at[obj_idx, 'UseDescription']
+
+
+        # image loading
         if self.preprocess:
-            return torch.load(self.all_data_dirs[index])
-        img = Image.open(self.all_data_dirs[index])
-        if self.add_noise:
-            img = self.trancolor(img)
-        img = np.array(img)/255.0
-        img = np.transpose(img[:, :, :3], (2, 0, 1))
-        img_tensor = torch.from_numpy(img.astype(np.float32))
-        if not self.multi_scale:
-            return self.composed(img_tensor)
+            img_tensor = torch.load(self.all_data_dirs[index])
         else:
-            img_tensor = self.composed_0(img_tensor)
-            channel_1 = self.composed_1(img_tensor)
-            channel_2 = self.composed_2(img_tensor)
-            channel_3 = self.composed_3(img_tensor)
-            
-            return torch.cat([channel_1,channel_2,channel_3], dim=0)
+            img = Image.open(self.all_data_dirs[index])
+            if self.add_noise:
+                img = self.trancolor(img)
+            img = np.array(img)/255.0
+            img = np.transpose(img[:, :, :3], (2, 0, 1))
+            img_tensor = torch.from_numpy(img.astype(np.float32))
+            if not self.multi_scale:
+                img_tensor = self.composed(img_tensor)
+            else:
+                img_tensor = self.composed_0(img_tensor)
+                channel_1 = self.composed_1(img_tensor)
+                channel_2 = self.composed_2(img_tensor)
+                channel_3 = self.composed_3(img_tensor)
+                img_tensor = torch.cat([channel_1,channel_2,channel_3], dim=0)
+        return {
+                    'image_tensor': img_tensor,
+                    'year_built': year_built,
+                    'height': height,
+                    'category': category
+               }
         
 
 
