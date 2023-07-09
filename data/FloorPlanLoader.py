@@ -22,7 +22,7 @@ def load_FloorPlan(multi_scale=False):
 
 # Floor Plan
 class FloorPlanDataset(torch.utils.data.Dataset):
-    def __init__(self, root='../data/data_root/', subset=None, 
+    def __init__(self, root='../data/data_root/data00/', subset=None, 
                  data_config='../data/data_config/', 
                  add_noise=False, multi_scale=False, 
                  preprocess=False):
@@ -34,7 +34,6 @@ class FloorPlanDataset(torch.utils.data.Dataset):
         self.multi_scale = multi_scale
         self.preprocess = preprocess
         self._init_config()
-        self._init_data_info()
         self.var = self.data_variance()
 
     def _init_config(self):
@@ -58,12 +57,17 @@ class FloorPlanDataset(torch.utils.data.Dataset):
                                 transforms.Resize(112)])
             self.composed_3 = transforms.Compose([
                                 transforms.CenterCrop(112)])
+            
+        self.year_span_per_label = 30
+        self._init_data_info()
+        self.age_label_num = self.meta_info['AgeLabel'].max()+1
+        self.category_num = 8
 
     def _init_data_info(self):
         all_file_names = os.listdir(self.data_root)
         self.meta_info = pd.read_csv(os.path.join(self.data_config, 'meta.csv'), index_col='OBJECTID')
         self.height_info = pd.read_csv(os.path.join(self.data_config, 'height.csv'), index_col='OBJECTID')
-        self.meta_info['AgeLabel'] = LabelEncoder().fit_transform(self.meta_info['YearBuilt1'])
+        self.meta_info['AgeLabel'] = (LabelEncoder().fit_transform(self.meta_info['YearBuilt1'])/self.year_span_per_label).astype('int64')
         self.meta_info['CateOneHot'] = OneHotEncoder().fit_transform(self.meta_info.UseDescription.values.reshape(-1,1)).toarray().tolist()
 
         self.all_data_dirs = []
@@ -130,10 +134,10 @@ class FloorPlanDataset(torch.utils.data.Dataset):
         return {
                     'image_tensor': img_tensor,
                     'year_built': year_built,
-                    'age_label': age_label,
-                    'height': height,
+                    'age_label': age_label.astype('int64'),
+                    'height': height.astype('float32'),
                     'category': category,
-                    'cate_onehot': cate_onehot
+                    'cate_onehot': np.asarray(cate_onehot).astype('float32')
                }
         
 

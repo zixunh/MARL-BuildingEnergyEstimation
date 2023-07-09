@@ -9,3 +9,5 @@ def add_noise(tensor, mean=0., std=1., noise_weight=0.5):
 
 def get_data_variance(dataset):
     return np.var(np.array([dataset[i].numpy() for i in range(0,len(dataset))]))
+
+
