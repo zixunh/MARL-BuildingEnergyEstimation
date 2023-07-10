@@ -58,7 +58,13 @@ class FloorPlanDataset(torch.utils.data.Dataset):
             self.composed_3 = transforms.Compose([
                                 transforms.CenterCrop(112)])
             
-        self.year_span_per_label = 30
+        self.year_span = [1980, 2004, 2013]
+        def year_map(year):
+            if year<1980: return 0
+            elif year<2004: return 1
+            elif year<2013: return 2
+            else: return 3
+        self.year_mapping = year_map
         self._init_data_info()
         self.age_label_num = self.meta_info['AgeLabel'].max()+1
         self.category_num = 8
@@ -67,7 +73,8 @@ class FloorPlanDataset(torch.utils.data.Dataset):
         all_file_names = os.listdir(self.data_root)
         self.meta_info = pd.read_csv(os.path.join(self.data_config, 'meta.csv'), index_col='OBJECTID')
         self.height_info = pd.read_csv(os.path.join(self.data_config, 'height.csv'), index_col='OBJECTID')
-        self.meta_info['AgeLabel'] = (LabelEncoder().fit_transform(self.meta_info['YearBuilt1'])/self.year_span_per_label).astype('int64')
+        self.meta_info['AgeLabel'] = list(map(self.year_mapping, 
+                                         (LabelEncoder().fit_transform(self.meta_info['YearBuilt1'])).astype('int64')))
         self.meta_info['CateOneHot'] = OneHotEncoder().fit_transform(self.meta_info.UseDescription.values.reshape(-1,1)).toarray().tolist()
 
         self.all_data_dirs = []
@@ -79,7 +86,7 @@ class FloorPlanDataset(torch.utils.data.Dataset):
         for name in all_file_names:
             if name.endswith(".png" if not self.preprocess else ".pt"):
                 self.all_data_dirs.append(self.data_root + name)
-                self.all_building_idx.append(int(name[:-3]))
+                self.all_building_idx.append(int(name.split('.')[0]))
 
     def data_variance(self):
         if not self.preprocess:
