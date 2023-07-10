@@ -39,7 +39,7 @@ def train_marl(train_loader=None, validation_loader=None,
                 n_embeddings, embedding_dim, 
                 beta, img_channel).to(device)
     if get_pretrain:
-        vqae.load_state_dict(torch.load("./best_checkpoint/la/uncategorized/45-vqae-0.03231103945937422.pt"))
+        vqae.load_state_dict(torch.load("./best_checkpoint/45-vqae-0.06130623703367973.pt"))
 
     marl = MARL(vqae, USE_MULTITASK, year_label_num, category_num)
     optimizer = torch.optim.Adam(marl.parameters(), lr=lr, amsgrad=False)
@@ -135,7 +135,7 @@ def train_marl(train_loader=None, validation_loader=None,
         if epoch%5==0 and avg_loss<best_loss:
             best_loss = avg_loss
             best_epoch = epoch
-            torch.save(marl.state_dict(), f"./checkpoint/{best_epoch}-vqae-{best_loss}.pt")
+            torch.save(marl.state_dict(), f"./checkpoint/{best_epoch}-marl-{best_loss}.pt")
             torch.save(optimizer.state_dict(), f"./checkpoint/{best_epoch}-adam-{best_loss}.pt")
             if USE_MULTITASK:
                 error = {
