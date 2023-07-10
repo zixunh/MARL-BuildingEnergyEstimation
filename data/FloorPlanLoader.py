@@ -73,8 +73,7 @@ class FloorPlanDataset(torch.utils.data.Dataset):
         all_file_names = os.listdir(self.data_root)
         self.meta_info = pd.read_csv(os.path.join(self.data_config, 'meta.csv'), index_col='OBJECTID')
         self.height_info = pd.read_csv(os.path.join(self.data_config, 'height.csv'), index_col='OBJECTID')
-        self.meta_info['AgeLabel'] = list(map(self.year_mapping, 
-                                         (LabelEncoder().fit_transform(self.meta_info['YearBuilt1'])).astype('int64')))
+        self.meta_info['AgeLabel'] = (LabelEncoder().fit_transform(list(map(self.year_mapping,self.meta_info['YearBuilt1'])))).astype('int64')
         self.meta_info['CateOneHot'] = OneHotEncoder().fit_transform(self.meta_info.UseDescription.values.reshape(-1,1)).toarray().tolist()
 
         self.all_data_dirs = []
