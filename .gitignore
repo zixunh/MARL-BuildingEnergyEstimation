@@ -12,3 +12,4 @@ data/img_residential_original/*
 best_checkpoint/test*
 results/test*
 notebooks/test*
+notebooks/outputs/vae_latent.pt
