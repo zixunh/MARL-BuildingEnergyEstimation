@@ -7,12 +7,9 @@ data/cifar-10-batches-py/*
 checkpoint/*
 data/floorplan_crop/*
 data/test*
-data/data_root/data*
+data/data_root/
 data/img_residential_original/*
 best_checkpoint/test*
 results/test*
 notebooks/test*
-<<<<<<< HEAD
 notebooks/outputs/vae_latent.pt
-=======
->>>>>>> dbed93b8ce6060a08dc1fd87b7fc5024f10e11af
