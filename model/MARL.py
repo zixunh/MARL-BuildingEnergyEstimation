@@ -35,6 +35,7 @@ class MARL(nn.Module):
         
         # recon
         latent = self.vqae.encode(x)
+        latent_vector = self.vqae.vector_quantization(x)
         vq_loss, data_recon, perplexity = self.vqae.decode(latent)
         # downstream
         height_pred = self.height_infer(latent)
@@ -42,6 +43,7 @@ class MARL(nn.Module):
         category_pred = torch.sigmoid(self.category_infer(latent))
 
         return {
+                'latent':latent,
                 'vqae': [vq_loss, data_recon, perplexity],
                 'height': height_pred,
                 'age': age_pred,

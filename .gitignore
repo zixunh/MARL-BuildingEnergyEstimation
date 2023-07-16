@@ -8,8 +8,10 @@ checkpoint/*
 data/floorplan_crop/*
 data/test*
 data/data_root/
+data/data_idf/
 data/img_residential_original/*
 best_checkpoint/test*
 results/test*
 notebooks/test*
 notebooks/outputs/vae_latent.pt
+notebooks/outputs/marl_latent.pt
