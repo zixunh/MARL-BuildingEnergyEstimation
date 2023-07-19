@@ -88,11 +88,12 @@ class FloorPlanDataset(torch.utils.data.Dataset):
                 self.all_building_idx.append(int(name.split('.')[0]))
 
     def data_variance(self):
-        if not self.preprocess:
+        try:
+            value = torch.load(os.path.join(self.data_root, 'var_pt'))
+        except:
             value = np.var(np.array([self.preload(i).numpy() for i in range(0,self.__len__())]))
             self.preprocess = True
             torch.save(value, os.path.join(self.data_root, 'var_pt'))
-        value = torch.load(os.path.join(self.data_root, 'var_pt'))
         return value
     
     def preload(self, index):
