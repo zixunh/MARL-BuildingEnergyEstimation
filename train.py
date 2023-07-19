@@ -39,7 +39,7 @@ def train_marl(train_loader=None, validation_loader=None,
                 n_embeddings, embedding_dim, 
                 beta, img_channel).to(device)
     if get_pretrain:
-        vqae.load_state_dict(torch.load("./best_checkpoint/45-vqae-0.06130623703367973.pt"))
+        vqae.load_state_dict(torch.load("./best_checkpoint/final/55-vqae-0.04753296934928414.pt"))
 
     marl = MARL(vqae, USE_MULTITASK, year_label_num, category_num)
     optimizer = torch.optim.Adam(marl.parameters(), lr=lr, amsgrad=False)
@@ -76,7 +76,7 @@ def train_marl(train_loader=None, validation_loader=None,
                     # age infer
                     age_pred = pred['age']
                     labels = data_dict['age_label'].to(device).long()
-                    age_error = F.cross_entropy(age_pred, labels)*0.3
+                    age_error = F.cross_entropy(age_pred, labels)*0.01
                     train_age_error.append(age_error.item())
                     # category infer
                     category_pred = pred['category']
