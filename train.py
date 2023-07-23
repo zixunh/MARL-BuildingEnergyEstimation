@@ -43,11 +43,17 @@ def train_marl(train_loader=None, validation_loader=None,
 
     marl = MARL(vqae, USE_MULTITASK, year_label_num, category_num)
     optimizer = torch.optim.Adam(marl.parameters(), lr=lr, amsgrad=False)
-    train_recon_error = train_height_error = train_age_error = train_usage_error = []
-    test_recon_error = test_height_error = test_age_error = test_usage_error = []
+    train_recon_error = []
+    train_height_error = []
+    train_age_error = []
+    train_usage_error = []
+    test_recon_error = []
+    test_height_error = []
+    test_age_error = []
+    test_usage_error = []
 
 
-    best_loss = 2
+    best_loss = 1e10
     for epoch in range(0, epochs):
         with tqdm(train_loader, unit="batch") as tepoch:
             marl.train()
@@ -67,6 +73,7 @@ def train_marl(train_loader=None, validation_loader=None,
                 vq_loss, data_recon, perplexity = pred['vqae']
                 recon_error = F.mse_loss(data_recon, data) / data_variance
                 train_recon_error.append(recon_error.item())
+                
 
                 if USE_MULTITASK:
                     # height infer
@@ -76,7 +83,7 @@ def train_marl(train_loader=None, validation_loader=None,
                     # age infer
                     age_pred = pred['age']
                     labels = data_dict['age_label'].to(device).long()
-                    age_error = F.cross_entropy(age_pred, labels)*0.01
+                    age_error = F.cross_entropy(age_pred, labels)*0.3
                     train_age_error.append(age_error.item())
                     # category infer
                     category_pred = pred['category']
@@ -115,13 +122,13 @@ def train_marl(train_loader=None, validation_loader=None,
                     # age infer
                     age_pred = pred['age']
                     labels = data_dict['age_label'].to(device).long()
-                    age_error = F.cross_entropy(age_pred, labels)*0.3
+                    age_error = F.cross_entropy(age_pred, labels)
                     test_age_error.append(age_error.item())
                     # category infer
                     category_pred = pred['category']
                     labels = data_dict['cate_onehot'].to(device)
                     criterion = torch.nn.BCEWithLogitsLoss()
-                    category_error = criterion(category_pred, labels)*0.7
+                    category_error = criterion(category_pred, labels)
                     test_usage_error.append(category_error.item())
 
                 loss = (recon_error.item() \
@@ -132,7 +139,7 @@ def train_marl(train_loader=None, validation_loader=None,
                 avg_loss += loss / val_len
                 
                 
-        if epoch%5==0 and avg_loss<best_loss:
+        if avg_loss<best_loss:
             best_loss = avg_loss
             best_epoch = epoch
             torch.save(marl.state_dict(), f"./checkpoint/{best_epoch}-marl-{best_loss}.pt")

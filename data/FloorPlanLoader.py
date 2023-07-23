@@ -97,9 +97,14 @@ class FloorPlanDataset(torch.utils.data.Dataset):
         return value
     
     def preload(self, index):
-        data_dict = self[index]
-        data = data_dict['image_tensor']
-        invalid_check = (data_dict['year_built']!=0)
+        invalid_check = True
+        try:
+            data_dict = self[index]
+            invalid_check = (data_dict['year_built']!=0)
+        except:
+            pass
+        data = self.__getimg__(index)
+
         if not self.preprocess and invalid_check:
             self.all_data_dirs[index] = self.all_data_dirs[index][:-4]+'.pt'
             torch.save(data, self.all_data_dirs[index])
@@ -108,18 +113,7 @@ class FloorPlanDataset(torch.utils.data.Dataset):
     def __len__(self):
         return len(self.all_data_dirs)
     
-    def __getitem__(self, index):
-        # meta info loading
-        obj_idx = self.all_building_idx[index]
-        meta_info = self.meta_info.loc[[obj_idx]]
-        height = self.height_info.at[obj_idx, 'HEIGHT_norm']
-
-        year_built = meta_info.at[obj_idx, 'YearBuilt1']
-        category = meta_info.at[obj_idx, 'UseDescription']
-        age_label = meta_info.at[obj_idx, 'AgeLabel']
-        cate_onehot = meta_info.at[obj_idx, 'CateOneHot']
-  
-
+    def __getimg__(self, index):
         # image loading
         if self.preprocess:
             img_tensor = torch.load(self.all_data_dirs[index])
@@ -138,6 +132,20 @@ class FloorPlanDataset(torch.utils.data.Dataset):
                 channel_2 = self.composed_2(img_tensor)
                 channel_3 = self.composed_3(img_tensor)
                 img_tensor = torch.cat([channel_1,channel_2,channel_3], dim=0)
+        return img_tensor
+    
+    def __getitem__(self, index):
+        # meta info loading
+        obj_idx = self.all_building_idx[index]
+        meta_info = self.meta_info.loc[[obj_idx]]
+        height = self.height_info.at[obj_idx, 'HEIGHT_norm']
+
+        year_built = meta_info.at[obj_idx, 'YearBuilt1']
+        category = meta_info.at[obj_idx, 'UseDescription']
+        age_label = meta_info.at[obj_idx, 'AgeLabel']
+        cate_onehot = meta_info.at[obj_idx, 'CateOneHot']
+
+        img_tensor= self.__getimg__(index)
         return {
                     'image_tensor': img_tensor,
                     'year_built': year_built,
