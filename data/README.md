@@ -9,3 +9,18 @@
         |_data02
         ...
 ```
+
+# Dataset Info 
+The categories are coded as below:
+
+| Index | Category |
+| ------------- | ------------- |
+|0|Mobile Homes|
+|1|Three Units (Any combination)|
+|2|Two Units|
+|3|Single|
+|4|Five or more apartments|
+|5|Four Units (Any combination)|
+|6|Mobile Home Parks|
+|7|Rooming Houses|
+
