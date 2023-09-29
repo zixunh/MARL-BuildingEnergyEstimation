@@ -3,6 +3,7 @@ We present Multi-scale Archetype Representation Learning (MARL), a method design
 ![Frame_2](https://github.com/ZixunHuang1997/MARL-BuildingEnergyEstimation/assets/106426767/f03687f2-044c-48f5-818e-27b1f70a92cb)
 
 ### Recent Updates:
+- 08/08/23: Our work is accepted to ICCV 2023 Workshop: 1st Computer Vision Aided Architectural Design Workshop.
 
 # Notes on LA data
 
