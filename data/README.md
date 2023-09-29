@@ -11,8 +11,7 @@
 ```
 
 # Dataset Info 
-Our dataset includes footprints in the following 6 regions:
-![regionmapfinal](https://github.com/ZixunHuang1997/MARL-BuildingEnergyEstimation/assets/106426767/076c223a-64cc-481a-afdf-c7907f60ae06.png=50x50)
+Our dataset includes footprints in the [6 regions](https://github.com/ZixunHuang1997/MARL-BuildingEnergyEstimation/assets/106426767/076c223a-64cc-481a-afdf-c7907f60ae06) in LA.
 
 The corresponding meta information is stored [here](https://github.com/ZixunHuang1997/MARL-BuildingEnergyEstimation/blob/main/data/data_config/meta.csv). The categories are coded as below:
 
