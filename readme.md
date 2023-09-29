@@ -28,7 +28,7 @@ pip install -r requirements.txt
 ```
 
 ### Train:
-To run training of our model, please refer to ,or run the following command:
+To run training of our model, please refer to [this notebook](https://github.com/ZixunHuang1997/MARL-BuildingEnergyEstimation/blob/main/notebooks/train_marl.ipynb), or run the following command:
 ```
 python train.py
 ```
