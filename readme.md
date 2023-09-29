@@ -1,6 +1,8 @@
 # MARL: [M]ulti-scale [A]rchetype [R]epresentation [L]earning and Clustering for Building Energy Estimation
 We present Multi-scale Archetype Representation Learning (MARL), a method designed to **automate local building archetype** construction through representation learning. Our proposed method addresses the aforementioned challenges by refining the essential elements of building archetypes for **Urban Building Energy Modeling**. This is a **learning-based** pipeline for representing and clustering buildings in our urban environment. Our research can be used in building energy estimation and can significantly save computing time. 
 
+### Recent Updates:
+
 # Notes on LA data
 
 current # data = 1,048,575
