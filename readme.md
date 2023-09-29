@@ -28,8 +28,9 @@ pip install -r requirements.txt
 ```
 
 ### Train:
+To run training of our model, please refer to ,or run the following command:
 ```
-
+python train.py
 ```
 ### Citation
 If our work is useful or relevant to your research, please kindly recognize our contributions by citing our paper:
