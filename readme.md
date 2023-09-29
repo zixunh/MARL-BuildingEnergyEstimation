@@ -8,6 +8,8 @@ We present Multi-scale Archetype Representation Learning (MARL), a method design
 ### Recent Updates:
 - 08/08/23: Our work is accepted to ICCV 2023 Workshop: 1st Computer Vision Aided Architectural Design Workshop.
 
+### Dataset:
+For footprints and their meta info, please refer to this folder.
 
 ### Citation
 ```
