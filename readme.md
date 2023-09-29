@@ -12,6 +12,16 @@ We present Multi-scale Archetype Representation Learning (MARL), a method design
 - For footprints and their meta info, please refer to this [folder](https://github.com/ZixunHuang1997/MARL-BuildingEnergyEstimation/tree/main/data).
 - For building energy consumption data, all rights are reserved by the [Lawrence Berkeley National Lab](https://buildings.lbl.gov/). Please contact authors for more detailed information.
 
+### Requirements:
+Before running our data generation and annotation pipeline, you can activate a conda environment where Python Version >= 3.7:
+```
+conda create --name [YOUR ENVIR NAME] python = [PYTHON VERSION]
+conda activate [YOUR ENVIR NAME]
+```
+then install all necessary packages:
+```
+pip install -r requirements.txt
+```
 ### Run Estimation:
 ### Train:
 ### Citation
