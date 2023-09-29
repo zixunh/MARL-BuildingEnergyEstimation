@@ -11,7 +11,7 @@
 ```
 
 # Dataset Info 
-The categories are coded as below:
+Meta info is stored [here](https://github.com/ZixunHuang1997/MARL-BuildingEnergyEstimation/blob/main/data/data_config/meta.csv). The categories are coded as below:
 
 | Index | Category |
 | ------------- | ------------- |
