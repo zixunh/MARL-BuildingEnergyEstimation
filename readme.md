@@ -22,16 +22,14 @@ then install all necessary packages:
 ```
 pip install -r requirements.txt
 ```
-### Run Estimation:
-```
-
-```
 
 ### Train:
 To run training of our model, please refer to [this notebook](https://github.com/ZixunHuang1997/MARL-BuildingEnergyEstimation/blob/main/notebooks/train_marl.ipynb), or run the following command:
 ```
 python train.py
 ```
+### Archetype Clustering:
+To get latent representation and run clustering, please refer to [this notebook](https://github.com/ZixunHuang1997/MARL-BuildingEnergyEstimation/blob/main/notebooks/latent_clustering.ipynb).
 ### Citation
 If our work is useful or relevant to your research, please kindly recognize our contributions by citing our paper:
 ```
