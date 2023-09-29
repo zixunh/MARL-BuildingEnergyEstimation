@@ -34,6 +34,7 @@ pip install -r requirements.txt
 
 ```
 ### Citation
+If our work is useful or relevant to your research, please kindly recognize our contributions by citing our paper:
 ```
 
 ```
