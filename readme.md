@@ -8,49 +8,6 @@ We present Multi-scale Archetype Representation Learning (MARL), a method design
 ### Recent Updates:
 - 08/08/23: Our work is accepted to ICCV 2023 Workshop: 1st Computer Vision Aided Architectural Design Workshop.
 
-# Notes on LA data
-
-current # data = 1,048,575
-height info is color coded with viridis 
-with Residential only, within the residential category, 
-The categories are coded as below:
-
-| Index | Category |
-| ------------- | ------------- |
-|0|Mobile Homes|
-|1|Three Units (Any combination)|
-|2|Two Units|
-|3|Single|
-|4|Five or more apartments|
-|5|Four Units (Any combination)|
-|6|Mobile Home Parks|
-|7|Rooming Houses|
-
-
-# Notes on SF data
-current # data = 2806, with several empty data
-<b>metadata</b>  
-
-[!] need to remove <b>0</b> and <b>null</b> value in year, which corresponds to 999 in category
-The meta data has three columns:
-
-|index|year|category|
-| ------------- | ------------- |---|
-|image index for floorplan|construction year|see below|
-
-The building categories are coded as below:
-| Index | Category |
-| ------------- | ------------- |
-|0|CIE|
-|1|Residential|
-|2|MIPs|
-|3|Hotel|
-|4|MixRes|
-|5|Mixed|
-|6|MED|
-|7|PDR|
-|8|Retail/Entertain|
-|999|Null|
 
 ### Citation
 ```
