@@ -23,8 +23,6 @@ then install all necessary packages:
 pip install -r requirements.txt
 ```
 ### Run Estimation:
-
-![image](https://github.com/ZixunHuang1997/MARL-BuildingEnergyEstimation/assets/106426767/c6813f9b-3f96-43d9-9a1e-31e4688f45e7)
 ```
 
 ```
