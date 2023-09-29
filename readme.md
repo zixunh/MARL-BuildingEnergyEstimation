@@ -93,15 +93,9 @@ The categories are coded as below:
 
 ## Todo: residential
 
-### 👉Reference
+### Citation
 ```
-@article{van2017neural,
-  title={Neural discrete representation learning},
-  author={Van Den Oord, Aaron and Vinyals, Oriol and others},
-  journal={Advances in neural information processing systems},
-  volume={30},
-  year={2017}
-}
+
 ```
 
 ---
