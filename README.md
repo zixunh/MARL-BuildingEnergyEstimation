@@ -24,7 +24,7 @@ This repository is the implementation code of the paper "MARL: [M]ulti-scale [A]
 We present Multi-scale Archetype Representation Learning (MARL), a method designed to **automate local building archetype** construction through representation learning. Our proposed method addresses the aforementioned challenges by refining the essential elements of building archetypes for **Urban Building Energy Modeling**. This is a **learning-based** pipeline for representing and clustering buildings in our urban environment. Our research can be used in building energy estimation and can significantly save computing time. 
 
 ### Dataset:
-- For footprints and their meta info, please refer to this [folder](https://github.com/ZixunHuang1997/MARL-BuildingEnergyEstimation/tree/main/data).
+- For footprints and their meta info, please refer to this [directory](https://github.com/ZixunHuang1997/MARL-BuildingEnergyEstimation/tree/main/data).
 - For building energy consumption data, all rights are reserved by the [Lawrence Berkeley National Lab](https://buildings.lbl.gov/). Please contact authors for more detailed information.
 
 ### Requirements:
