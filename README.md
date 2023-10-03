@@ -1,5 +1,5 @@
 # MARL: [M]ulti-scale [A]rchetype [R]epresentation [L]earning and Clustering for Building Energy Estimation
-This repository is the implementation code of the paper "MARL: [M]ulti-scale [A]rchetype [R]epresentation [L]earning and Clustering for Building Energy Estimation" (arxiv, poster).
+This repository is the implementation code of the paper "MARL: [M]ulti-scale [A]rchetype [R]epresentation [L]earning and Clustering for Building Energy Estimation" ([arxiv](https://arxiv.org/abs/2310.00180), poster).
 
 ![Frame_2](https://github.com/ZixunHuang1997/MARL-BuildingEnergyEstimation/assets/106426767/f03687f2-044c-48f5-818e-27b1f70a92cb)
 
@@ -33,6 +33,13 @@ To get latent representation and run clustering, please refer to [this notebook]
 ### Citation
 If our work is useful or relevant to your research, please kindly recognize our contributions by citing our paper:
 ```
-
+@misc{zhuang2023marl,
+      title={MARL: Multi-scale Archetype Representation Learning for Urban Building Energy Modeling}, 
+      author={Xinwei Zhuang and Zixun Huang and Wentao Zeng and Luisa Caldas},
+      year={2023},
+      eprint={2310.00180},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG}
+}
 ```
 
