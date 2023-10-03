@@ -1,7 +1,7 @@
 # MARL: [M]ulti-scale [A]rchetype [R]epresentation [L]earning and Clustering for Building Energy Estimation
 
 ### Recent Updates:
-- 08/08/23: Our work is accepted to **ICCV 2023 Workshop**: 1st Computer Vision Aided Architectural Design (CVAAD) Workshop.
+- 08/08/23: Our work is accepted to [ICCV 2023 Workshop](https://cvaad-workshop.github.io/): 1st Computer Vision Aided Architectural Design (CVAAD) Workshop.
 
 ### Citation:
 If our work is useful or relevant to your research, please kindly recognize our contributions by citing our paper:
