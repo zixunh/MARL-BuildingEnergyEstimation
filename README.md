@@ -3,7 +3,7 @@
 ### Recent Updates:
 - 08/08/23: Our work is accepted to **ICCV 2023 Workshop**: 1st Computer Vision Aided Architectural Design (CVAAD) Workshop.
 
-### Citation
+### Citation:
 If our work is useful or relevant to your research, please kindly recognize our contributions by citing our paper:
 ```
 @misc{zhuang2023marl,
