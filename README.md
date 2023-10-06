@@ -17,7 +17,7 @@ If our work is useful or relevant to your research, please kindly recognize our 
 ```
 
 ### Overview:
-This repository is the implementation code of the paper "MARL: [M]ulti-scale [A]rchetype [R]epresentation [L]earning and Clustering for Building Energy Estimation" ([arxiv](https://arxiv.org/abs/2310.00180), poster).
+This repository is the implementation code of the paper "MARL: [M]ulti-scale [A]rchetype [R]epresentation [L]earning and Clustering for Building Energy Estimation" ([iccvw 2023](https://openaccess.thecvf.com/content/ICCV2023W/CVAAD/papers/Zhuang_MARL_Multi-scale_Archetype_Representation_Learning_for_Urban_Building_Energy_Modeling_ICCVW_2023_paper.pdf), poster).
 
 ![Frame_2](https://github.com/ZixunHuang1997/MARL-BuildingEnergyEstimation/assets/106426767/f03687f2-044c-48f5-818e-27b1f70a92cb)
 
