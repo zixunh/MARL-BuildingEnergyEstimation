@@ -6,13 +6,13 @@
 ### Citation:
 If our work is useful or relevant to your research, please kindly recognize our contributions by citing our paper:
 ```
-@misc{zhuang2023marl,
-      title={MARL: Multi-scale Archetype Representation Learning for Urban Building Energy Modeling}, 
-      author={Xinwei Zhuang and Zixun Huang and Wentao Zeng and Luisa Caldas},
-      year={2023},
-      eprint={2310.00180},
-      archivePrefix={arXiv},
-      primaryClass={cs.LG}
+@InProceedings{Zhuang_2023_ICCV,
+    author    = {Zhuang, Xinwei and Huang, Zixun and Zeng, Wentao and Caldas, Luisa},
+    title     = {MARL: Multi-scale Archetype Representation Learning for Urban Building Energy Modeling},
+    booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV) Workshops},
+    month     = {October},
+    year      = {2023},
+    pages     = {1565-1572}
 }
 ```
 
